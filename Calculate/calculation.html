@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Fees Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .course-list {
+            margin-bottom: 20px;
+        }
+        .course-list label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .course-list input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        #calculate-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #calculate-btn:hover {
+            background-color: #45a049;
+        }
+        #total-fees {
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Total Fees for Six-Month</h1>
+        <div class="course-list">    
+            <label><input type="checkbox" data-course-id="course-1" value="1500"> First Aid (R1500)</label>
+            <label><input type="checkbox" data-course-id="course-2" value="1500"> Sewing (R1500)</label>
+            <label><input type="checkbox" data-course-id="course-3" value="1500"> Landscaping (R1500)</label>
+            <label><input type="checkbox" data-course-id="course-4" value="1500"> Life Skills (R1500)</label>
+        </div>
+        <button id="calculate-btn">Calculate Fees</button>
+        <div id="total-fees"></div>
+    </div>
+    <button onclick="location.href='file:///C:/Users/lab_services_student/OneDrive/Xhaw/Calculate/SixWeekCourse.html'">Go to Six-Week Courses</button>
+
+    <script type="text/javascript">
+        const courseDetails = {
+            "course-1": {
+                title: "First Aid",
+                fee: 1500,
+                discount: 0
+            },
+            "course-2": {
+                title: "Sewing",
+                fee: 1500,
+                discount: 0
+            },
+            "course-3": {
+                title: "Landscaping",
+                fee: 1500,
+                discount: 0
+            },
+            "course-4": {
+                title: "Life Skills",
+                fee: 1500,
+                discount: 0
+            }
+        };
+
+        function calculateFees(courses) { 
+            let totalFee = 0;
+            let discount = 0;
+            if (courses.length === 1) {
+                discount = 0;
+            } else if (courses.length === 2) {
+                discount = 0.05;
+            } else if (courses.length === 3) {
+                discount = 0.10;
+            } else if (courses.length >= 4) {// Gives a 15% discount if the user choices more than 3 courses
+                discount = 0.15;
+            }
+
+            courses.forEach((course) => {// Calculate the total fee before discount by summing up the fees of all selected courses
+                totalFee += courseDetails[course].fee;
+            });
+
+            totalFee *= (1 - discount);
+            const vat = totalFee * 0.15;
+            return totalFee + vat;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const calculateBtn = document.getElementById("calculate-btn");
+            calculateBtn.addEventListener("click", () => {
+                const selectedCourses = document.querySelectorAll("input[type='checkbox']:checked");
+                const courses = [];
+                selectedCourses.forEach((course) => {
+                    courses.push(course.dataset.courseId);
+                });
+                const totalFees = calculateFees(courses);
+                document.getElementById("total-fees").innerHTML = `Total Fees: R${totalFees.toFixed(2)}`;
+            });
+        });
+    </script>
+</body>
+</html>

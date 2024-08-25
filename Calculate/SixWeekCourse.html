@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Six Week Course</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html>
+<head>
+  <title><Six-Weeks></title>
+  <style>
+    #calculate-btn {
+      background-color: #4CAF50; /* Green background */
+      color: white; /* White text */
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #calculate-btn:hover {
+      background-color: #367B37; /* Darker green on hover */
+    }
+    #back-btn {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Total Fees for Six-Weeks Course </h1>
+  <form>
+    <label for="childMinding">Child Minding (R750):</label>
+    <input type="checkbox" id="childMinding" value="750">
+    <br>
+    <label for="cooking">Cooking (R750):</label>
+    <input type="checkbox" id="cooking" value="750">
+    <br>
+    <label for="gardenMaintence">Garden Maintenance (R750):</label>
+    <input type="checkbox" id="gardenMaintence" value="750">
+    <br>
+    <button type="button" id="calculate-btn" onclick="calculateTotalFees()">Calculate Total Fees</button>
+    <p id="totalFees"></p>
+  </form>
+  
+  
+  <button id="back-btn" onclick="location.href='file:///C:/Users/lab_services_student/OneDrive/Xhaw/Calculate/calculation.html'">Back to Six-Month Courses</button>
+
+  <script>
+    function calculateTotalFees() {
+      var totalFees = 0;
+      var selectedCourses = 0;
+      
+      if (document.getElementById("childMinding").checked) {
+        totalFees += parseInt(document.getElementById("childMinding").value);
+        selectedCourses++;
+      }
+      if (document.getElementById("cooking").checked) {
+        totalFees += parseInt(document.getElementById("cooking").value);
+        selectedCourses++;
+      }
+      if (document.getElementById("gardenMaintence").checked) {
+        totalFees += parseInt(document.getElementById("gardenMaintence").value);
+        selectedCourses++;
+      }
+
+      var discount = 0;
+      if (selectedCourses == 1) {
+        discount = 0;
+      } else if (selectedCourses == 2) {
+        discount = 0.05;
+      } else if (selectedCourses == 3) {
+        discount = 0.10;
+      } else if (selectedCourses > 3) {
+        discount = 0.15;
+      }
+
+      var discountedFee = totalFees * (1 - discount);
+      var vat = discountedFee * 0.15;
+      var totalDue = discountedFee + vat;
+
+      document.getElementById("totalFees").innerHTML = "Total Fees: R" + totalDue.toFixed(2);
+    }
+  </script>
+</body>
+</html>
+
+</body>
+</html>
